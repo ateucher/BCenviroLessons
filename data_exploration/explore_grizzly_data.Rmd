@@ -118,10 +118,23 @@ First, you will need to get the data. Unfortunately, unlike the `.csv` files, we
 
 When you get the email with the link to the zip file, save it in your working directory as `data/DataBC_GBPU.zip`
 
-Next we'll unzip the file, and import the shapefile. You will need the `sp` and `rgdal` packages
+Next we'll unzip the file, and import the shapefile. You will need the `sp` and `rgdal` packages: 
+
+- The `sp` package provides classes (data structures) for spatial objects, including `SpatialPoints`, 
+`SpatialPolygons`, `SpatialLines`, etc. Each of these classes has a complementary class that can hold attributes that go along with the spatial data. They are `SpatialPointsDataFrame`, `SpatialPolygonsDataFrame`, `SpatialLinesDataFrame`. You always need this package when working with spatial data.
+
+- The `rgdal` package provides input/output and projection/transformation operations for spatial data via bindings to the Geospatial Data Abstraction Library (GDAL).
 
 ```{r messate = FALSE}
-unzip("data/DataBC_GBPU.zip", exdir = "data")
+library(sp)
+library(rgdal)
+zipfile <- "data/DataBC_GBPU.zip"
+
+if (!file.exists(zipfile)) {
+  download.file("https://github.com/ateucher/BCenviroLessons/raw/master/data_exploration/data/DataBC_GBPU.zip", destfile = zipfile)
+}
+
+unzip(zipfile, exdir = "data")
 
 gbpu <- readOGR(dsn = "data/GBPU_BC", layer = "GBPU_BC_polygon", 
                 encoding = "ESRI Shapefile", stringsAsFactors = FALSE)
