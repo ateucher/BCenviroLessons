@@ -134,7 +134,7 @@ Let's create a random assortment of points we collected in BC:
 pts <- data.frame(id = 1:100, 
                   x = runif(100, gbpu@bbox["x", "min"], gbpu@bbox["x", "max"]), 
                   y = runif(100, gbpu@bbox["y", "min"], gbpu@bbox["y", "max"]))
-
+head(pts)
 ```
 
 To convert a data frame of lats and longs to a SpatialPointsDataFrame, use the `coordinates()` function from the `sp` package
